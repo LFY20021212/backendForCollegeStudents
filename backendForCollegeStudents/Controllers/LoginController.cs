@@ -38,5 +38,9 @@ namespace backendForCollegeStudents.Controllers
                 await Ef.Logins.AddAsync(login);
             return await Ef.SaveChangesAsync() > 0;
         }
+        public string Test()
+        {
+            return "";
+        }
     }
 }

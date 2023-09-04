@@ -24,5 +24,6 @@ namespace backendForCollegeStudents.EntityFrameworkConfig
         }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<VerificationCode>  VerificationCodes { get; set; }
     }
 }

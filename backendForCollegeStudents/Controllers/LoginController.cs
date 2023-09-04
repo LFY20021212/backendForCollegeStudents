@@ -1,13 +1,17 @@
 ﻿using backendForCollegeStudents.EntityFrameworkConfig;
+using backendForCollegeStudents.MapperModels;
 using backendForCollegeStudents.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using System.Drawing;
 
 namespace backendForCollegeStudents.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Serializable]
     public class LoginController : ControllerBase
     {
         EntityFrameworkDbContext Ef = new EntityFrameworkDbContext();
@@ -18,10 +22,10 @@ namespace backendForCollegeStudents.Controllers
         /// <param name="LoginPwd">登录名称</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<bool> LoginCheck(string LoginName,string LoginPwd)
+        public async Task<Login> LoginCheck(LoginModel login)
         {
-            var Result= await Ef.Logins.CountAsync(e => e.LoginName == LoginName && e.LoginPwd == LoginPwd);
-            return Result > 0;
+            var Result= await Ef.Logins.FirstOrDefaultAsync(e => e.LoginName == login.LoginName && e.LoginPwd == login.LoginPwd);
+            return Result;
         }
         /// <summary>
         /// 添加新用户
@@ -37,10 +41,6 @@ namespace backendForCollegeStudents.Controllers
             //保存到数据库当中
                 await Ef.Logins.AddAsync(login);
             return await Ef.SaveChangesAsync() > 0;
-        }
-        public string Test()
-        {
-            return "";
         }
     }
 }

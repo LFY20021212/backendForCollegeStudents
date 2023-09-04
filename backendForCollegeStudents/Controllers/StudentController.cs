@@ -42,6 +42,7 @@ namespace backendForCollegeStudents.Controllers
         [HttpPost]
         public async Task<UserRegister> PName(string name)
         {
+            string Name = "Text";
             return JsonConvert.DeserializeObject<UserRegister>(name);
         }
 
